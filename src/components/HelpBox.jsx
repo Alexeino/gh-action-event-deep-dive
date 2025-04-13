@@ -2,7 +2,7 @@ import { string } from 'prop-types';
 
 import './HelpBox.css';
 
-// Random Comment to trigger workflow
+
 
 function HelpBox({ title, text }) {
   return (
