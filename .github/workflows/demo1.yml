@@ -3,13 +3,24 @@ on:
   pull_request:
     types:
       - opened
+    branches: # Only when pull requests is to main branch
+      - main
   workflow_dispatch:
+  push:
+    branches: # Branches filter
+      - main
+      - 'dev-*'
+      - 'feature/**'
+    paths-ignore:
+      - '.github/workflows/*' # Ignore workflow if the changes are done in .github/workflows/ folder
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Output event data
-        run: echo "${{ toJSON(github.event) }}"
+        env: 
+          EVENT_DATA: ${{ toJSON(github.event) }}
+        run: echo "$EVENT_DATA"
       - name: Get code
         uses: actions/checkout@v3
       - name: Install dependencies
